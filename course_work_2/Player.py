@@ -34,4 +34,14 @@ class Player:
         """
         return self.user_points
 
+    def get_name(self):
+        """
+        Возвращаем имя пользователя
+        """
+        return self.user_name
 
+    def get_user_subwords(self):
+        """
+        Возвращаем список угаданых слов
+        """
+        return self.user_list_subwords

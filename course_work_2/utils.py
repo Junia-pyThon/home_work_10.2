@@ -2,7 +2,8 @@ import requests as requests
 from random import choice
 from BasicWord import BasicWord
 import json
-from setings import PATCH_DICT_WEB, PATCH_DICT_FILE
+import os
+from setings import PATCH_DICT_WEB, PATCH_DICT_FILE, PATCH_PLAYER_FILE
 
 def load_random_word():
     """
@@ -20,3 +21,17 @@ def load_random_word():
             word = choice(json.load(file))
 
     return BasicWord(word['word'], word['subwords'])
+
+
+def write_user_to_file(name, subwords, points):
+    """
+    Функция записывает данные пользователя в файл
+    :return:
+    """
+    player = {'user_name': {name}, 'user_list_subwords':{subwords}, 'user_points':{points}}
+    try:
+        with open(PATCH_PLAYER_FILE, 'a') as file:
+            json.dump(player, file)
+    except FileNotFoundError:
+        with open(PATCH_PLAYER_FILE, 'w') as file:
+            json.dump(player, file)

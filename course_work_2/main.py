@@ -1,5 +1,5 @@
 from Player import Player
-from utils import load_random_word
+from utils import load_random_word, write_user_to_file
 
 
 def main():
@@ -40,6 +40,9 @@ def main():
     # Вывод результата игры
     print(f"""Игра завершена, вы угадали {player.get_the_number_of_used_word()} слов
               и заработали {player.get_points()} очков!""")
+
+    # Заносим данные пользователя в файл
+    write_user_to_file(player.get_name(), player.get_user_subwords(), player.get_points())
 
 
 if __name__ == '__main__':
