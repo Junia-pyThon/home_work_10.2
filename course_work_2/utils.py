@@ -28,10 +28,18 @@ def write_user_to_file(name, subwords, points):
     Функция записывает данные пользователя в файл
     :return:
     """
-    player = {'user_name': {name}, 'user_list_subwords':{subwords}, 'user_points':{points}}
+    player = dict(user_name=name, user_list_subwords=subwords, user_points=points)
     try:
-        with open(PATCH_PLAYER_FILE, 'a') as file:
-            json.dump(player, file)
+        #with open(PATCH_PLAYER_FILE, encoding='utf-8') as file:
+        #   data = json.load(file)
+        #   data.appent(player)
+        file = open(PATCH_PLAYER_FILE, encoding='utf-8')
+        data = json.load(file)
+        data.append(player)
+        with open(PATCH_PLAYER_FILE, 'w') as file:
+            json.dump(data, file)
     except FileNotFoundError:
         with open(PATCH_PLAYER_FILE, 'w') as file:
-            json.dump(player, file)
+            data = []
+            data.append(player)
+            json.dump(data, file)

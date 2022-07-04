@@ -16,30 +16,29 @@ def main():
           f"Чтобы закончить игру, угадайте все слова или напишите 'stop' или 'стоп'\n"
           f"Поехали, ваше первое слово?\n"
           )
-    user_answer = ''
-    # Цикл ввода слов пользователем
-    while user_answer is not ['стоп', 'stop']:
-        while player.get_the_number_of_used_word() != word.counting_subwords():
-            user_answer = input('>: ')
 
-            if len(user_answer) < 3:  # Смотрим не короткое ли слово
-                print("Слишком короткое слово")
-            elif not word.checking_word_of_subwords(user_answer):  # Допустимо ли слово
-                print("Неверно")
-            elif player.checking_use_word_before(user_answer):  # Проверяем вугадал ли пользователь ранее это слово
-                print("Уже использовано")
-            else:
-                # Добавляем слово в список угаданных
-                player.added_word_in_subwords(user_answer)
-                # Присваиваем очки
-                player.points_up()
-                # Оповещаем пользователя
-                print(f"""Верно! Вы заработали 10 очков 
-                          Ещё {word.counting_subwords() - player.get_the_number_of_used_word()} слов""")
+    # Цикл ввода слов пользователем
+
+    while player.get_the_number_of_used_word() != word.counting_subwords():
+        user_answer = input('>: ')
+        if user_answer in ['стоп', 'stop']:
+            break
+        if len(user_answer) < 3:  # Смотрим не короткое ли слово
+            print("Слишком короткое слово")
+        elif not word.checking_word_of_subwords(user_answer):  # Допустимо ли слово
+            print("Неверно")
+        elif player.checking_use_word_before(user_answer):  # Проверяем вугадал ли пользователь ранее это слово
+            print("Уже использовано")
+        else:
+            # Добавляем слово в список угаданных
+            player.added_word_in_subwords(user_answer)
+            # Присваиваем очки
+            player.points_up()
+            # Оповещаем пользователя
+            print(f"""Верно! Вы заработали 10 очков Ещё {word.counting_subwords() - player.get_the_number_of_used_word()} слов""")
 
     # Вывод результата игры
-    print(f"""Игра завершена, вы угадали {player.get_the_number_of_used_word()} слов
-              и заработали {player.get_points()} очков!""")
+    print(f"""Игра завершена, вы угадали {player.get_the_number_of_used_word()} слов и заработали {player.get_points()} очков!""")
 
     # Заносим данные пользователя в файл
     write_user_to_file(player.get_name(), player.get_user_subwords(), player.get_points())
