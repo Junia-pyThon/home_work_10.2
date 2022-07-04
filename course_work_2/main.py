@@ -3,9 +3,9 @@ from utils import load_random_word
 
 
 def main():
-    name = input("Ввведите имя игрока: ")  # Запрос имений игрока
+    player = Player(input("Ввведите имя игрока: "))  # Запрос имений игрока
 
-    player = Player(name)  # Создание экземпляра класса
+    #player = Player(name)  # Создание экземпляра класса
 
     word = load_random_word()  # Получаем случайное слово
 
@@ -16,30 +16,26 @@ def main():
           f"Чтобы закончить игру, угадайте все слова или напишите 'stop' или 'стоп'\n"
           f"Поехали, ваше первое слово?\n"
           )
-
+    user_answer = ''
     # Цикл ввода слов пользователем
-    while player.get_the_number_of_used_word() != word.counting_subwords():
-        user_answer = input('>: ')
-        # Проверяем не желает ли пользователь прекратить игру
-        match user_answer:
-            case 'стоп':
-                break
-            case 'stop':
-                break
-        if len(user_answer) < 3:  # Смотрим не короткое ли слово
-            print("Слишком короткое слово")
-        elif not word.checking_word_of_subwords(user_answer):  # Допустимо ли слово
-            print("Неверно")
-        elif player.checking_use_word_before(user_answer):  # Проверяем вугадал ли пользователь ранее это слово
-            print("Уже использовано")
-        else:
-            # Добавляем слово в список угаданных
-            player.added_word_in_subwords(user_answer)
-            # Присваиваем очки
-            player.points_up()
-            # Оповещаем пользователя
-            print(f"""Верно! Вы заработали 10 очков 
-                      Ещё {word.counting_subwords() - player.get_the_number_of_used_word()} слов""")
+    while user_answer is not ['стоп', 'stop']:
+        while player.get_the_number_of_used_word() != word.counting_subwords():
+            user_answer = input('>: ')
+
+            if len(user_answer) < 3:  # Смотрим не короткое ли слово
+                print("Слишком короткое слово")
+            elif not word.checking_word_of_subwords(user_answer):  # Допустимо ли слово
+                print("Неверно")
+            elif player.checking_use_word_before(user_answer):  # Проверяем вугадал ли пользователь ранее это слово
+                print("Уже использовано")
+            else:
+                # Добавляем слово в список угаданных
+                player.added_word_in_subwords(user_answer)
+                # Присваиваем очки
+                player.points_up()
+                # Оповещаем пользователя
+                print(f"""Верно! Вы заработали 10 очков 
+                          Ещё {word.counting_subwords() - player.get_the_number_of_used_word()} слов""")
 
     # Вывод результата игры
     print(f"""Игра завершена, вы угадали {player.get_the_number_of_used_word()} слов
