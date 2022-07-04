@@ -36,6 +36,7 @@ def write_user_to_file(name, subwords, points):
         file = open(PATCH_PLAYER_FILE, encoding='utf-8')
         data = json.load(file)
         data.append(player)
+        file.close()
         with open(PATCH_PLAYER_FILE, 'w') as file:
             json.dump(data, file)
     except FileNotFoundError:
