@@ -33,12 +33,17 @@ def main():
         elif player.checking_use_word_before(user_answer):  # Проверяем вугадал ли пользователь ранее это слово
             print("Уже использовано")
         else:
-            # Добавляем слово в список угаданных и оповещаем пользователя
+            # Добавляем слово в список угаданных
             player.added_word_in_subwords(user_answer)
-            print(f"Верно! Ещё {word.counting_subwords() - player.get_the_number_of_used_word()} слов")
+            # Присваиваем очки
+            player.points_up()
+            # Оповещаем пользователя
+            print(f"""Верно! Вы заработали 10 очков 
+                      Ещё {word.counting_subwords() - player.get_the_number_of_used_word()} слов""")
 
     # Вывод результата игры
-    print(f"Игра завершена, вы угадали {player.get_the_number_of_used_word()} слов!")
+    print(f"""Игра завершена, вы угадали {player.get_the_number_of_used_word()} слов
+              и заработали {player.get_points()} очков!""")
 
 
 if __name__ == '__main__':
