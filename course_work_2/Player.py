@@ -1,7 +1,7 @@
 class Player:
-    def __init__(self, name, points=0):
+    def __init__(self, name, subwords=[], points=0):
         self.user_name = name
-        self.user_list_subwords = []
+        self.user_list_subwords = subwords
         self.user_points = points
 
     def __repr__(self):

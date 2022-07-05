@@ -1,6 +1,7 @@
 import requests as requests
 from random import choice
 from BasicWord import BasicWord
+from Player import Player
 import json
 import os
 from setings import PATCH_DICT_WEB, PATCH_DICT_FILE, PATCH_PLAYER_FILE
@@ -44,3 +45,19 @@ def write_user_to_file(name, subwords, points):
             data = []
             data.append(player)
             json.dump(data, file)
+
+
+def hello_player():
+    """
+    Приветствуем игрока и проверяем играл ли он ранее
+    Если да, то воссоздаем экземпляр класса с его данными
+    Если нет, то создаем новый экземпляр
+    """
+    player_name = input("Ввведите имя игрока: ").lower()
+    with open(PATCH_PLAYER_FILE, encoding='utf-8') as file:
+        data = json.load(file)
+        for item in data:
+            if player_name == item['user_name'].lower():
+                return Player(item['user_name'], item['user_list_subwords'], item['user_points'])
+        else:
+            return Player(player_name)

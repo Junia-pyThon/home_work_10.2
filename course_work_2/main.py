@@ -1,21 +1,29 @@
-from Player import Player
-from utils import load_random_word, write_user_to_file
+#from Player import Player
+from utils import load_random_word, write_user_to_file, hello_player
 
 
 def main():
-    player = Player(input("Ввведите имя игрока: "))  # Запрос имений игрока
+    #player = Player(input("Ввведите имя игрока: "))  # Запрос имений игрока
+    player = hello_player()
 
-    #player = Player(name)  # Создание экземпляра класса
-
-    word = load_random_word()  # Получаем случайное слово
+    # Получаем случайное слово
+    word = load_random_word()
 
     # Приветствуем игрока и предлагаем сыграть
-    print(f"Привет, {player.user_name.title()}!\n"
-          f"Составьте {len(word.set_subwords)} слов из слова {word.word.upper()}\n"
-          f"Слова должны быть не короче 3 букв\n"
-          f"Чтобы закончить игру, угадайте все слова или напишите 'stop' или 'стоп'\n"
-          f"Поехали, ваше первое слово?\n"
-          )
+    if player.get_the_number_of_used_word() == 0:
+        print(f"Привет, {player.user_name.title()}!\n"
+              f"Составьте {len(word.set_subwords)} слов из слова {word.word.upper()}\n"
+              f"Слова должны быть не короче 3 букв\n"
+              f"Чтобы закончить игру, угадайте все слова или напишите 'stop' или 'стоп'\n"
+              f"Поехали, ваше первое слово?\n"
+             )
+    else:
+        print(f"С возвращением, {player.user_name.title()}!\n"
+              f"У вас {player.get_points()} очков. Продолжим\n"
+              f"Составьте {len(word.set_subwords)} слов из слова {word.word.upper()}\n"              
+              f"Поехали, ваше первое слово?\n"
+              )
+
 
     # Цикл ввода слов пользователем
 
