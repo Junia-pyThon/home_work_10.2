@@ -24,12 +24,12 @@ def load_random_word():
     return BasicWord(word['word'], word['subwords'])
 
 
-def write_user_to_file(name, subwords, points):
+def write_user_to_file(name, words, points):
     """
     Функция записывает данные пользователя в файл
     :return:
     """
-    player = dict(user_name=name, user_list_subwords=subwords, user_points=points)
+    player = dict(user_name=name, user_list_words=words, user_points=points)
     try:
         #with open(PATCH_PLAYER_FILE, encoding='utf-8') as file:
         #   data = json.load(file)
@@ -58,6 +58,6 @@ def hello_player():
         data = json.load(file)
         for item in data:
             if player_name == item['user_name'].lower():
-                return Player(item['user_name'], item['user_list_subwords'], item['user_points'])
+                return Player(item['user_name'], item['user_list_words'], item['user_points'])
         else:
             return Player(player_name)
