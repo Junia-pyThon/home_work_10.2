@@ -14,18 +14,51 @@ def load_candidates():
         candidates = json.load(file)
         return candidates
 
+
 @app.route('/')
 def get_all():
-    return 'Hello'
+    candidates = load_candidates()
+    result = ''
+    for candidate in candidates:
+        result += f"""
+               <pre>
+               Имя кандидата: {candidate['name']}
+               Позиция кандидата: {candidate['position']}
+               Навыки кандидата: {candidate['skills'].lower()}
+               </pre>
+               \n\t
+               """
+    return result
 
 
-@app.route('/candidates/<x>')
-def get_by_pk(pk: str):
-    pass
+@app.route('/candidates/<int:pk>')
+def get_by_pk(pk: str, candidates=load_candidates()):
+    for candidate in candidates:
+        if candidate['pk'] == pk:
+            return f"""
+                    <pre>
+                    <img src="({candidate['picture']})">
+                    Имя кандидата: {candidate['name']}
+                    Позиция кандидата: {candidate['position']}
+                    Навыки кандидата: {candidate['skills'].lower()}
+                    </pre>
+                    """
 
 
-@app.route('/skills/<x>')
-def get_by_skill(skill_name: str):
-    pass
+@app.route('/skills/<skill>')
+def get_by_skill(skill: str, candidates=load_candidates()):
+    result = ''
+    for candidate in candidates:
+        if skill in candidate['skills']:
+            result += f"""
+                    <pre>
+                    Имя кандидата: {candidate['name']}
+                    Позиция кандидата: {candidate['position']}
+                    Навыки кандидата: {candidate['skills'].lower()}
+                    </pre>
+                    \n\t
+                    """
+    return result
+
 
 app.run()
