@@ -17,6 +17,10 @@ def load_candidates():
 
 @app.route('/')
 def get_all():
+    """
+     На главной странице выводим информацию обо всех кандидатах
+    :return:
+    """
     candidates = load_candidates()
     result = ''
     for candidate in candidates:
@@ -33,6 +37,10 @@ def get_all():
 
 @app.route('/candidates/<int:pk>')
 def get_by_pk(pk: str, candidates=load_candidates()):
+    """
+    На странице /candidates/<pk> выводим информацию о кандидате по его pk
+    :return:
+    """
     for candidate in candidates:
         if candidate['pk'] == pk:
             return f"""
@@ -47,6 +55,10 @@ def get_by_pk(pk: str, candidates=load_candidates()):
 
 @app.route('/skills/<skill>')
 def get_by_skill(skill: str, candidates=load_candidates()):
+    """
+    На странице /skills/<skill> выводим информацию о кандидатах которые имеют навык <skill>
+    :return:
+    """
     result = ''
     for candidate in candidates:
         if skill in candidate['skills']:
